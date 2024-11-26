@@ -1,10 +1,11 @@
+<!-- списко с фильмами и описание сразу -->
 <template>
   <div>
     <div v-for="movie in movies" :key="movie.id" class="movielist">
       <router-link :to="`/movies/${movie.id}`">
         <img :src="movie.image?.medium" :alt="movie.name" />
-       <div class="movielist"><h3 >{{ movie.name }}</h3> </div>
-      <p class="movielist">Год выпуска: {{ new Date(movie.premiered).getFullYear() }}</p>
+       <div class="movielist">{{ movie.name }} </div>
+      <div class="movielist">Год выпуска: {{ new Date(movie.premiered).getFullYear() }}</div>
       <div class="ratefont"> Рейтинг: {{ movie.rating.average }} </div>
       </router-link>
     </div>
@@ -23,7 +24,8 @@ export default {
 .movielist {
   background: #282c34;
   color: #61dafb;
-  padding: 1em;
+  /* padding: 1em; */
+  margin-bottom: 5px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -39,17 +41,4 @@ nav a {
 }
 </style>
 
-<!-- <template>
-  <div class="movie-list">
-    <MovieItem v-for="movie in movies" :key="movie.imdb_id" :movie="movie" />
-  </div>
-</template>
 
-<script>
-import MovieItem from './MovieItem.vue';
-
-export default {
-  props: ['movies'],
-  components: { MovieItem }
-};
-</script> -->

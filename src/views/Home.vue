@@ -1,10 +1,19 @@
 <template>
   <div>
     <Header />
-
-    <div class="filters">
-      <button @click="filterRating">Высокий рейтинг >9 </button>
-      <button @click="filterYear">Новее 2000</button>
+<hr>
+<hr>
+    <div>
+<!-- Кнопки для фильтрации -->
+       <div>
+         <!-- Кнопка для фильтрации фильмов с рейтингом больше 9 -->
+        <button @click="filterByRating" class="button1">Фильмы с рейтингом > 8</button>
+        <!-- Кнопка для фильтрации фильмов, снятых после 2000 года -->
+        <button @click="filterByYear" class="button2">Фильмы после 2000 года</button>
+      </div>
+<hr>
+<hr>
+      
     </div>
     <MovieList :movies="filteredMovies" />
   </div>
@@ -23,17 +32,22 @@ export default {
       filteredMovies: []
     };
   },
-  methods: {
-    filterByRating() {
-      this.filteredMovies = this.movies.filter(movie => movie.rating?.average > 9);
+ 
+
+
+    methods: {
+      // Фильтруем фильмы с рейтингом больше 9
+       filterByRating() {
+        this.$router.push({ path: "/filter", query: { rating: "8" } });
+      },
+      // Фильтруем фильмы, снятые после 2000 года
+      filterByYear() {
+        this.$router.push({ path: "/filter", query: { year: "2000" } });
+      },
     },
-    filterByYear() {
-      this.filteredMovies = this.movies.filter(movie => {
-        const year = new Date(movie.premiered).getFullYear();
-        return year > 2000;
-      });
-    },
-  },
+  
+
+
   async mounted() {
     const response = await axios.get("https://api.tvmaze.com/shows");
     this.movies = response.data.slice(0, 20);
@@ -42,30 +56,37 @@ export default {
   components: {
     MovieList, Header
   },
-  //   fetchMovies() {
-  //     axios.get('https://moviesminidatabase.p.rapidapi.com/movie/order/byRating/', {
-  //       headers: {
-  //         'x-rapidapi-key': 'bbb8fa1eb2msh1c6a3ac8f2b32c5p14cf28jsn423043d3cbab',
-  //         'x-rapidapi-host': 'moviesminidatabase.p.rapidapi.com',
-  //       },
-  //       params: { page: 1 }
-  //     })
-  //     .then(response => {
-  //       this.movies = response.data.results.slice(0, 20);
-  //       this.filteredMovies = this.movies;
-  //     });
-  //   },
-  //   filterRating() {
-  //     this.filteredMovies = this.movies.filter(movie => movie.rating > 9);
-  //   },
-  //   filterYear() {
-  //     this.filteredMovies = this.movies.filter(movie => new Date(movie.year).getFullYear() > 2000);
-  //   }
-  // },
-  // mounted() {
-  //   this.fetchMovies();
-  // }
+  
 };
 </script>
 
 
+<style scoped>
+  /* Стили главной страницы */
+  h2 {
+    margin: 20px 0;
+  }
+  .button1 {
+    margin-left: 50px;
+    margin-right: 5px;
+    padding: 10px;
+    background-color: #282c34;
+    color:  #61dafb;
+    border: none;
+    cursor: pointer;
+  }
+
+  .button2 {
+    
+    margin-left: 130px;
+    margin-right: 0px;
+    padding: 10px;
+    background-color: #282c34;
+    color:  #61dafb;
+    border: none;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #0056b3;
+  }
+  </style>

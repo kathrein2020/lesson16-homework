@@ -1,3 +1,4 @@
+<!-- заголовок для каждой страницы -->
 <template>
   <header>
     <h1>Поиск фильмов и топ-20</h1>
@@ -23,6 +24,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-size: 14px;
   }
   nav a {
     margin: 0 1em;
